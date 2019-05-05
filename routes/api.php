@@ -19,5 +19,5 @@ use Illuminate\Http\Request;
 
 // Route::get('posts', 'PostController@index');
 Route::resource('posts', 'PostController')->only([
-    'index'
+    'index','show'
 ]);
