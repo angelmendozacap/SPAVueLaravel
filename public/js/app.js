@@ -2004,8 +2004,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'post'
+  name: "post",
+  props: ["slug"],
+  data: function data() {
+    return {
+      post: {}
+    };
+  },
+  watch: {
+    // call again the method if the route changes
+    '$route': 'fetchData'
+  },
+  created: function created() {
+    this.fetchData();
+  },
+  methods: {
+    fetchData: function fetchData() {
+      var _this = this;
+
+      var url = "api/posts/".concat(this.slug);
+      axios.get(url).then(function (result) {
+        _this.post = result.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -37369,7 +37398,36 @@ var render = function() {
           ]
         ),
         _vm._v(" "),
-        _vm._m(1)
+        _c("div", { staticClass: "navbar navbar-dark bg-dark shadow-sm" }, [
+          _c(
+            "div",
+            { staticClass: "container d-flex justify-content-between" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "navbar-brand d-flex align-items-center",
+                  attrs: { to: { name: "home" }, href: "#" }
+                },
+                [
+                  _c("img", {
+                    staticClass: "mr-2",
+                    attrs: {
+                      src: "https://vuejs.org/images/logo.png",
+                      width: "20",
+                      height: "20"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v("SPA Laravel y Vue")])
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(1)
+            ],
+            1
+          )
+        ])
       ]),
       _vm._v(" "),
       _c(
@@ -37399,45 +37457,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "navbar navbar-dark bg-dark shadow-sm" }, [
-      _c("div", { staticClass: "container d-flex justify-content-between" }, [
-        _c(
-          "a",
-          {
-            staticClass: "navbar-brand d-flex align-items-center",
-            attrs: { href: "#" }
-          },
-          [
-            _c("img", {
-              staticClass: "mr-2",
-              attrs: {
-                src: "https://vuejs.org/images/logo.png",
-                width: "20",
-                height: "20"
-              }
-            }),
-            _vm._v(" "),
-            _c("strong", [_vm._v("SPA Laravel y Vue")])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "navbar-toggler",
-            attrs: {
-              type: "button",
-              "data-toggle": "collapse",
-              "data-target": "#navbarHeader",
-              "aria-controls": "navbarHeader",
-              "aria-expanded": "false",
-              "aria-label": "Toggle navigation"
-            }
-          },
-          [_c("span", { staticClass: "navbar-toggler-icon" })]
-        )
-      ])
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "navbar-toggler",
+        attrs: {
+          type: "button",
+          "data-toggle": "collapse",
+          "data-target": "#navbarHeader",
+          "aria-controls": "navbarHeader",
+          "aria-expanded": "false",
+          "aria-label": "Toggle navigation"
+        }
+      },
+      [_c("span", { staticClass: "navbar-toggler-icon" })]
+    )
   }
 ]
 render._withStripped = true
@@ -37661,27 +37695,38 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("section", { staticClass: "jumbotron text-center" }, [
+      _c("div", { staticClass: "container" }, [
+        _c("h1", {
+          staticClass: "jumbotron-heading",
+          domProps: { textContent: _vm._s(_vm.post.title) }
+        })
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "container" }, [
       _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [_c("posts")], 1)
+        _c(
+          "div",
+          { staticClass: "col-md-8" },
+          [
+            _c("p", { domProps: { textContent: _vm._s(_vm.post.excerpt) } }),
+            _vm._v(" "),
+            _c("div", { domProps: { innerHTML: _vm._s(_vm.post.body) } }),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("h1", [_vm._v("Otros articulos")]),
+            _vm._v(" "),
+            _c("posts")
+          ],
+          1
+        )
       ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "jumbotron text-center" }, [
-      _c("div", { staticClass: "container" }, [
-        _c("h1", { staticClass: "jumbotron-heading" }, [_vm._v("... Post ...")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

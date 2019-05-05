@@ -24,10 +24,10 @@
       </div>
       <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container d-flex justify-content-between">
-          <a href="#" class="navbar-brand d-flex align-items-center">
+          <router-link :to="{name: 'home'}" href="#" class="navbar-brand d-flex align-items-center">
             <img src="https://vuejs.org/images/logo.png" width="20" height="20" class="mr-2">
             <strong>SPA Laravel y Vue</strong>
-          </a>
+          </router-link>
           <button
             class="navbar-toggler"
             type="button"
